@@ -47,7 +47,7 @@ struct RatingsView: View {
             place.concordRatings += place.concordRatings == "" ? String(rating) : ";" + String(rating)
             place.updateConcordRating()
             let db = Firestore.firestore()
-            let placeRef = db.collection("concordPlace").document(place.documentID)
+            let placeRef = db.collection("ConcordPlace").document(place.documentID)
             placeRef.updateData(["concordRatings" : place.concordRatings, "concordReviews" : place.concordReviews])
             @AppStorage("Rated:\(place.id)") var rated: String = ""
             rated = "true"
