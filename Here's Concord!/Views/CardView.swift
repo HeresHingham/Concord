@@ -665,7 +665,7 @@ struct FadingScrollView: View {
             ForEach(Array(bulletLines.enumerated()), id: \.offset) { index, line in
               HStack(alignment: .top) {
                 if line != "" && line[line.index(line.startIndex, offsetBy: 1, limitedBy: line.endIndex)!] != " " {
-                  Image("Basket")
+                  Image("Reviews/Basket")
                     .resizable()
                     .frame(width: 18, height: 14)
                     .padding(0)
@@ -703,7 +703,7 @@ struct FadingScrollView: View {
                 HStack(alignment: .top) {
                   if let lineIndex = line.index(line.startIndex, offsetBy: 1, limitedBy: line.endIndex) {
                     if line[lineIndex] != " " {
-                      Image("Basket")
+                      Image("Reviews/Basket")
                         .resizable()
                         .frame(width: 18, height: 14)
                         .padding(0)

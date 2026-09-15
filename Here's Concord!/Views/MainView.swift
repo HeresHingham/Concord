@@ -476,7 +476,7 @@ extension MainView {
   private var filterHScrollToolbar: some View {
     ScrollView(.horizontal, showsIndicators: false) {
       LazyHStack(spacing: 10) {
-        FilterButtonView(title: "Basket", imageName: "basket", type: .Basket) { mapStyle = placesViewModel.standardMapStyle }
+        FilterButtonView(title: "Basket", imageName: "Reviews/ToolbarBasket", type: .Basket) { mapStyle = placesViewModel.standardMapStyle }
         FilterButtonView(title: "Dining", imageName: "fork.knife", type: .Dining) {}
         FilterButtonView(title: "Coffee", imageName: "cup.and.saucer", type: .Coffee) {}
         FilterButtonView(title: "Shopping", imageName: "handbag", type: .Shopping) {}
