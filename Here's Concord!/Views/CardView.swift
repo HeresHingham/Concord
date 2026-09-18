@@ -26,41 +26,26 @@ struct CardView: View {
   var body: some View {
     GeometryReader { geometry in
       VStack {
-        HStack(alignment: .top) {
-          VStack(alignment: .leading) {
-            imageSection
-          }
-        }
-        
+        imageSection
         titleSection
         
         if placesViewModel.selectedPlace.type != 12 && placesViewModel.selectedPlace.type != 13 && (placesViewModel.selectedPlace.googleRating > 0 || placesViewModel.selectedPlace.yelpRating > 0 || placesViewModel.selectedPlace.type < 7)
         {
-          HStack {
-            if placesViewModel.selectedPlace.type == 6 {
-              historicHouseSection
-            } else {
-              reviewsSection
-            }
+          if placesViewModel.selectedPlace.type == 6 {
+            historicHouseSection
+          } else {
+            reviewsSection
           }
         }
     
-        GeometryReader { geometry in
-          VStack(alignment: .leading)
-          {
-            notesSection
-          }
-          .padding(.top, -(geometry.size.height * 0.7))
-        }
+        notesSection
 
         HStack
         {
           directionsButton
           addToBasketButton
         }
-        .padding(.top, 10)
         .padding(.bottom, 25)
-        .padding([.leading, .trailing], 25)
       }
       .background(
         Rectangle()
@@ -83,7 +68,7 @@ struct CardView: View {
           placesViewModel.showCardView = false
         }
       })
-      .padding(.top, -50)
+//      .padding(.top, -50)
     }
   }
 }
@@ -199,16 +184,21 @@ extension CardView {
     let descLocalizedStringKey: LocalizedStringKey = LocalizedStringKey(stringLiteral: descText)
     let path = placesViewModel.selectedPlace.name
 
-    return GeometryReader { geometry in
+//    return GeometryReader { geometry in
+//      FadingScrollView(place: place, design: design, descText: descText, path: path, descLocalizedStringKey: descLocalizedStringKey, placesViewModel: placesViewModel)
+//        .frame(height: UIDevice.current.userInterfaceIdiom == .pad ? 100 : geometry.size.height)
+//    }
+    
+    return
       FadingScrollView(place: place, design: design, descText: descText, path: path, descLocalizedStringKey: descLocalizedStringKey, placesViewModel: placesViewModel)
-        .frame(height: UIDevice.current.userInterfaceIdiom == .pad ? 100 : geometry.size.height * 1)
-    }
-
+//        .frame(height: UIDevice.current.userInterfaceIdiom == .pad ? 100 : geometry.size.height)
+    
 //    .padding(.top, [8,12,13,15].contains(where: { type in
 //      type == placesViewModel.selectedPlace.type}) ? -40 : -10)
 //    .padding(.top, [2].contains(where: { type in
 //      type == placesViewModel.selectedPlace.type}) ? 0 : 0)
     .padding([.leading, .trailing], 20)
+    .padding(.top, 20)
 //    .border(
 //        LinearGradient(
 //          colors: [.yellow],
@@ -263,9 +253,8 @@ extension CardView {
         Text(address)
           .font(.system(.footnote, design: design, weight: .regular))
       }
-      .padding([.leading, .trailing], 20)
-      .padding(.top, -10)
-      .frame(height: 50.0)
+      .padding([.leading, .trailing], 16)
+      .frame(height: 40.0)
 //      .border(
 //          LinearGradient(
 //            colors: [.green],
@@ -463,7 +452,7 @@ extension CardView {
                 .foregroundColor(.red)
                 .frame(width: 160, alignment: .leading)
             }
-            .padding(.leading, 4)
+            .padding(.leading, 2)
             Spacer()
           } else if placesViewModel.selectedPlace.hours.components(separatedBy: ";").count == 1 {
             Text(placesViewModel.selectedPlace.hours)
@@ -499,7 +488,8 @@ extension CardView {
             }
           }
         }
-        .padding([.leading, .trailing], 18)
+        .padding([.leading, .trailing], 16)
+        .padding(.top, 3)
 //        .border(
 //            LinearGradient(
 //              colors: [.blue],
@@ -511,16 +501,17 @@ extension CardView {
         
         let gReviews = placesViewModel.selectedPlace.googleReviews
         let yReviews = placesViewModel.selectedPlace.yelpReviews
+        let instagram = place.instagram.hasPrefix("https") ? place.instagram : "https://www.instagram.com/\(place.instagram)"
         
         if showRatingSelector == false {
           HStack {
             if placesViewModel.selectedPlace.instagram != "" {
-              Link(destination: URL(string: "https://www.instagram.com/\(placesViewModel.selectedPlace.instagram)")!) {
+              Link(destination: URL(string: instagram)!) {
                 Image("Reviews/Instagram")
                   .resizable()
                   .scaledToFill()
                   .frame(width: 18, height: 18)
-                  .padding(.leading, 15)
+                  .padding(.leading, 11)
               }
             } else {
               Spacer().frame(width: 22.0)
@@ -611,7 +602,8 @@ extension CardView {
                 .padding(.leading, -14)
             }
           }
-          .padding(.bottom, 10)
+          .padding(.leading, 8.5)
+          .padding(.top, -6)
         } else if showRatingSelector == true {
           HStack {
             RatingsView(place: $placesViewModel.selectedPlace, showRatingSelector: $showRatingSelector)
@@ -621,7 +613,6 @@ extension CardView {
           }
         }
       }
-      .frame(height: 25.0)
 //      .border(
 //          LinearGradient(
 //            colors: [.red],
@@ -631,6 +622,8 @@ extension CardView {
 //          width: 1
 //      )
     }
+    .frame(height: 25.0)
+    .padding(.top, -11)
   }
 }
 
